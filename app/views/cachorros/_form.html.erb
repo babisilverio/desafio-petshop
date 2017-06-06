@@ -1,0 +1,87 @@
+<%= form_for @cachorro, :html => { :class => "form-horizontal cachorro" } do |f| %>
+
+  <% if @cachorro.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@cachorro.errors.count, "error") %> prohibited this cachorro from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @cachorro.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <%# raspagem de dados para retornar a raça %>
+  <div class="form-group">
+    <%= f.label :lista_raca_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.collection_select(:lista_raca_id, ListaRaca.all,
+                  :id, :nome_raca, {:prompt => 'Selecione...'}, {class: "form-control"}) %>      
+    </div>
+    <%=f.error_span(:lista_raca_id) %>
+  </div>
+  <%# castrado %>
+  <div class="form-group">
+    <%= f.label 'É castrado?', :class => 'control-label col-lg-2' %>
+    <div class="radio-inline">
+      <p><%= f.radio_button :castrado, 'sim' %> <%= f.label 'Sim' %></p>    
+      <p><%= f.radio_button :castrado, 'nao' %> <%= f.label 'Não' %></p>    
+    </div>
+    <%=f.error_span(:castrado) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :nascimento, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.date_field :nascimento, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:nascimento) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :nome_cao, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :nome_cao, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:nome_cao) %>
+  </div>
+  <div class="form-group">
+    <%=f.label :sexo, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.select(:sexo, 
+                    options_for_select([["Macho", "M"], ["Fêmea", "F"]], @cachorro.sexo),
+                    {include_blank: false}, {class: "form-control"}) %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :nome_dono, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :nome_dono, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:nome_dono) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :telefone, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :telefone, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:telefone) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :data_ultima_vez_petshop, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.date_field :data_ultima_vez_petshop, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:data_ultima_vez_petshop) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                cachorros_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

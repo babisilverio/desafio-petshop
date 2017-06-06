@@ -1,0 +1,15 @@
+"pt-BR":
+  activerecord:
+    models:
+      cachorro: Cachorro
+    attributes:
+      cachorro:
+        id: "Id"
+        lista_raca_id: "Raça"
+        castrado: "Castrado"
+        sexo: "Gênero"
+        nascimento: "Data de nascimento"
+        nome_cao: "Nome do Cão"
+        nome_dono: "Dono"
+        telefone: "Telefone"
+        data_ultima_vez_petshop: "Ultima visita"

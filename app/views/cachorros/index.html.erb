@@ -1,0 +1,64 @@
+<%- model_class = Cachorro -%>
+<div class="page-header">
+  <h1>PetShop Cão Feliz</h1>
+  <h3><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h3>
+</div>
+
+<%# Pesquisa o cão pelo nome do dono%>
+<%= form_tag(cachorros_path, :method => :get) do %>
+  <div class="form-group">   
+    <div class="col-lg-10">
+      <%= text_field_tag 'pesquisar', nil, placeholder: 'Digite o nome do cão...', :class => 'form-control' %>
+    </div>   
+    <%= submit_tag 'Pesquisar', :class => 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:nome_cao) %></th>
+      <th><%= model_class.human_attribute_name(:sexo) %></th>
+      <th><%= model_class.human_attribute_name(:nome_dono) %></th>
+      <th><%= model_class.human_attribute_name(:lista_raca_id) %></th>
+      <th><%= model_class.human_attribute_name(:castrado) %></th>
+      <th><%= model_class.human_attribute_name(:nascimento) %></th>      
+      <th><%= model_class.human_attribute_name(:telefone) %></th>
+      <th><%= model_class.human_attribute_name(:data_ultima_vez_petshop) %></th>     
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cachorros.each do |cachorro| %>
+      <tr>
+        <td><%= link_to cachorro.id, cachorro_path(cachorro) %></td>
+        <td><%= cachorro.nome_cao %></td>
+        <td><%= cachorro.sexo %></td>
+        <td><%= cachorro.nome_dono %></td>
+        <td><%= cachorro.lista_raca.nome_raca %></td>
+        <td><%= cachorro.castrado %></td>
+        <td><%= cachorro.nascimento %></td>       
+        <td><%= cachorro.telefone %></td>
+        <td><%= cachorro.data_ultima_vez_petshop %></td>        
+        <td>
+          <%= link_to t('.show', :default => t("helpers.links.show")),
+                      cachorro_path(cachorro), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_cachorro_path(cachorro), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      cachorro_path(cachorro),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_cachorro_path,
+            :class => 'btn btn-primary' %>
+<br />
+<%= will_paginate @cachorros %>

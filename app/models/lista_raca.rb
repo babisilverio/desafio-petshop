@@ -1,0 +1,2 @@
+class ListaRaca < ApplicationRecord
+end
